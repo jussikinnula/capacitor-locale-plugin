@@ -5,18 +5,17 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import java.util.Locale;
 
 @CapacitorPlugin(name = "Locale")
 public class LocalePlugin extends Plugin {
 
-    private Locale implementation = new Locale();
-
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
+    public void getCountryCode(PluginCall call) {
         JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
+        // getCountry() will default to "US" on devices without SIM card inserted
+        final String countryCode = Locale.getDefault().getCountry();
+        ret.put("countryCode", countryCode);
         call.resolve(ret);
     }
 }

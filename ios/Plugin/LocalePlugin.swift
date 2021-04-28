@@ -7,12 +7,10 @@ import Capacitor
  */
 @objc(LocalePlugin)
 public class LocalePlugin: CAPPlugin {
-    private let implementation = Locale()
-
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
+    @objc func getCountryCode(_ call: CAPPluginCall) {
+        let countryCode = NSLocale.current.regionCode ?? ""
         call.resolve([
-            "value": implementation.echo(value)
+            "countryCode": countryCode
         ])
     }
 }
